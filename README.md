@@ -51,7 +51,7 @@
 
 <br>
 <div align=center>
-	<p>:wrench: 기능구현 :wrench:</p>
+	<p>:wrench: 기능 구현 :wrench:</p>
 <div align=center>
 	
 <details>
@@ -64,7 +64,7 @@
 </details>
 
 <details>
-<summary>상품주문</summary>
+<summary>상품 주문</summary>
 <div markdown="1">
 
 
@@ -73,7 +73,7 @@
 </details>
 
 <details>
-<summary>회원관리</summary>
+<summary>회원 관리</summary>
 <div markdown="1">
 
 
@@ -82,7 +82,7 @@
 </details>
 
 <details>
-<summary>관리자</summary>
+<summary>관리자 권한</summary>
 <div markdown="1">
 
 
