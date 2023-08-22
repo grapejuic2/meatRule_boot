@@ -53,14 +53,43 @@
 <div align=center>
 	<p>:wrench: 기능구현 :wrench:</p>
 <div align=center>
+	
 <details>
-<summary>토글 접기/펼치기</summary>
+<summary>로그인/카카오API</summary>
 <div markdown="1">
 
-안녕
+
 
 </div>
 </details>
+
+<details>
+<summary>상품주문</summary>
+<div markdown="1">
+
+
+
+</div>
+</details>
+
+<details>
+<summary>회원관리</summary>
+<div markdown="1">
+
+
+
+</div>
+</details>
+
+<details>
+<summary>관리자</summary>
+<div markdown="1">
+
+
+
+</div>
+</details>
+
 </div>
 </div>
 
