@@ -49,6 +49,7 @@
 	<br>
 </div>
 
+<div align=center>
 <details>
 <summary>토글 접기/펼치기</summary>
 <div markdown="1">
@@ -57,6 +58,7 @@
 
 </div>
 </details>
+</div>
 
 <div align=center>
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=footer&fontSize=90" />
