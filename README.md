@@ -49,6 +49,9 @@
 	<br>
 </div>
 
+<br>
+<div align=center>
+	<p>:wrench: 기능구현 :wrench:</p>
 <div align=center>
 <details>
 <summary>토글 접기/펼치기</summary>
@@ -59,9 +62,8 @@
 </div>
 </details>
 </div>
+</div>
 
-<br>
-<br>
 <div align=center>
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=footer&fontSize=90" />
 </div>
