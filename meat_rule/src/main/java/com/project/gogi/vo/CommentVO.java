@@ -13,8 +13,8 @@ public class CommentVO {
 	private int cmt_parent_num;
 	private Date cmt_date;
 	private int cust_serv_no;
-	private int depth;
-	
+	private int group_number;
+
 	
 	
 	public int getLvl() {
@@ -59,17 +59,17 @@ public class CommentVO {
 	public void setCust_serv_no(int cust_serv_no) {
 		this.cust_serv_no = cust_serv_no;
 	}
-	public int getDepth() {
-		return depth;
+	public int getGroup_number() {
+		return group_number;
 	}
-	public void setDepth(int depth) {
-		this.depth = depth;
+	public void setGroup_number(int group_number) {
+		this.group_number = group_number;
 	}
 	@Override
 	public String toString() {
 		return "CommentVO [lvl=" + lvl + ", mem_id=" + mem_id + ", cmt_number=" + cmt_number + ", cmt_content="
 				+ cmt_content + ", cmt_parent_num=" + cmt_parent_num + ", cmt_date=" + cmt_date + ", cust_serv_no="
-				+ cust_serv_no + ", depth=" + depth + "]";
+				+ cust_serv_no + ", group_number=" + group_number + "]";
 	}
 	
 	

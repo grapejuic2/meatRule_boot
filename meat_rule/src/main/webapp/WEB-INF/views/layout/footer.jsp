@@ -27,7 +27,6 @@ p{margin:0;}
 </style>
 </head>
 <body>
-
     
     	<div class="container" > 
     	<div class="leftInfo">

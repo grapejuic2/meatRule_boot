@@ -4,40 +4,41 @@
 <mapper namespace="mapper.serv">
 
 	<resultMap id="insertServ" type="servVO">
-		   <result property="cust_serv_no" column="cust_serv_no" />
-		   <result property="cust_serv_title" column="cust_serv_title" />
-		   <result property="cust_serv_content" column="cust_serv_content" />
-		   <result property="mem_id" column="mem_id" />
-		   <result property="cust_serv_date" column="cust_serv_date" />
-		   <result property="cust_serv_hits" column="cust_serv_hits" />
-		   <result property="cust_serv_pw" column="cust_serv_pw" />
-		   <result property="cust_serv_notice" column="cust_serv_notice" />
-		   <result property="imageFileName" column="imageFileName" />
-		   <result property="originalFileName" column="originalFileName" />
-		   <result property="cust_serv_secret" column="cust_serv_secret" />
+		<result property="cust_serv_no" column="cust_serv_no" />
+		<result property="cust_serv_title" column="cust_serv_title" />
+		<result property="cust_serv_content" column="cust_serv_content" />
+		<result property="mem_id" column="mem_id" />
+		<result property="cust_serv_date" column="cust_serv_date" />
+		<result property="cust_serv_hits" column="cust_serv_hits" />
+		<result property="cust_serv_pw" column="cust_serv_pw" />
+		<result property="cust_serv_notice" column="cust_serv_notice" />
+		<result property="imageFileName" column="imageFileName" />
+		<result property="originalFileName" column="originalFileName" />
+		<result property="cust_serv_secret" column="cust_serv_secret" />
 	</resultMap>
 
 	<resultMap id="servImageResult" type="servImageFileVO">
-	   <result property="img_no" column="img_no" />
-	   <result property="img_name" column="img_name" />
-	   <result property="img_date" column="img_date" />
-	   <result property="cust_serv_no" column="cust_serv_no" />
-	   <result property="reg_id" column="reg_id" />
+		<result property="img_no" column="img_no" />
+		<result property="img_name" column="img_name" />
+		<result property="img_date" column="img_date" />
+		<result property="cust_serv_no" column="cust_serv_no" />
+		<result property="reg_id" column="reg_id" />
 	</resultMap>
-	
+
 	<resultMap id="commentResult" type="CommentVO">
-      <result property="cust_serv_no" column="cust_serv_no" />
-      <result property="mem_id" column="mem_id" />
-      <result property="cmt_number" column="cmt_number" />
-      <result property="cmt_content" column="cmt_content" />
-      <result property="cmt_parent_num" column="cmt_parent_num" />
-      <result property="cmt_date" column="cmt_date" />
-      <result property="depth" column="depth" />
-   </resultMap>
- 
-   
-	  	<!-- 목록+페이징 -->
-		<select id="servList" resultType="servVO" parameterType="Criteria">
+		<result property="cust_serv_no" column="cust_serv_no" />
+		<result property="mem_id" column="mem_id" />
+		<result property="cmt_number" column="cmt_number" />
+		<result property="cmt_content" column="cmt_content" />
+		<result property="cmt_parent_num" column="cmt_parent_num" />
+		<result property="cmt_date" column="cmt_date" />
+		<result property="group_number" column="group_number" />
+	</resultMap>
+
+
+	<!-- 목록+페이징 -->
+	<select id="servList" resultType="servVO"
+		parameterType="Criteria">
 			<![CDATA[
 			(
 			    SELECT cust_serv_no, cust_serv_title, cust_serv_content, mem_id, cust_serv_date, cust_serv_hits, cust_serv_notice, cust_serv_secret
@@ -54,23 +55,27 @@
 			    LIMIT #{pageStart}, #{perPageNum}
 			)
 			]]>
-		</select>
+	</select>
 
-		<!-- 게시물 총 갯수 확인 -->
-		<select id="servListCount" resultType="int">
+	<!-- 게시물 총 갯수 확인 -->
+	<select id="servListCount" resultType="int">
 			<![CDATA[
 			SELECT COUNT(cust_serv_no) FROM GOGI_CUST_SERV_BOARD
 			]]>
-		</select>
+	</select>
 
-		<!-- 작성 -->
-		<insert id="servWrite" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="cust_serv_no">
-			INSERT INTO GOGI_CUST_SERV_BOARD (cust_serv_title, cust_serv_content, mem_id, cust_serv_notice, cust_serv_secret)
-			VALUES (#{cust_serv_title}, #{cust_serv_content}, #{mem_id}, #{cust_serv_notice}, #{cust_serv_secret})
-		</insert>
- 	
- 	
-	 	<insert id="insertServImageFile" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="img_no">
+	<!-- 작성 -->
+	<insert id="servWrite" parameterType="java.util.Map"
+		useGeneratedKeys="true" keyProperty="cust_serv_no">
+		INSERT INTO GOGI_CUST_SERV_BOARD (cust_serv_title, cust_serv_content,
+		mem_id, cust_serv_notice, cust_serv_secret)
+		VALUES (#{cust_serv_title}, #{cust_serv_content}, #{mem_id},
+		#{cust_serv_notice}, #{cust_serv_secret})
+	</insert>
+
+
+	<insert id="insertServImageFile" parameterType="java.util.List"
+		useGeneratedKeys="true" keyProperty="img_no">
 
 	       <![CDATA[    
 	         insert into gogi_serv_image (img_date,
@@ -83,88 +88,108 @@
 	                                  #{reg_id})
 	      
 	      ]]>
-	   </insert>
-	   
-	  
-   
-	   <!-- 조회 -->
-	   <select id="servRead" resultType="servVO" parameterType="int">
-		select cust_serv_no, cust_serv_title, cust_serv_content,mem_id, cust_serv_date,cust_serv_hits
+	</insert>
+
+
+
+	<!-- 조회 -->
+	<select id="servRead" resultType="servVO" parameterType="int">
+		select
+		cust_serv_no, cust_serv_title, cust_serv_content,mem_id,
+		cust_serv_date,cust_serv_hits
 		from GOGI_CUST_SERV_BOARD
-		where cust_serv_no = #{cust_serv_no}
-	   </select>
-   
-	   <select id="selectImageFile"	resultMap="servImageResult" parameterType="int">
+		where
+		cust_serv_no = #{cust_serv_no}
+	</select>
+
+	<select id="selectImageFile" resultMap="servImageResult"
+		parameterType="int">
 	   		<![CDATA[
 	   		select * from gogi_serv_image where cust_serv_no=#{cust_serv_no}  
-	   		]]> 	
-	   </select>
-	   
-   
-	   	<!--  조회수  -->
-		 <update id="updateServViewCnt">
-		    update GOGI_CUST_SERV_BOARD
-		    set 
-		    cust_serv_hits = cust_serv_hits +1
-		    where cust_serv_no = #{cust_serv_no}
-		</update>
+	   		]]>
+	</select>
+
+
+	<!-- 조회수 -->
+	<update id="updateServViewCnt">
+		update GOGI_CUST_SERV_BOARD
+		set
+		cust_serv_hits = cust_serv_hits +1
+		where cust_serv_no = #{cust_serv_no}
+	</update>
 
 
 
-	   <!--  수정 -->   
-   <update id="servUpdate" parameterType="servVO">
-    update GOGI_CUST_SERV_BOARD
-     set
-      cust_serv_title = #{cust_serv_title},
-      cust_serv_content = #{cust_serv_content}
-  where cust_serv_no = #{cust_serv_no}
-   </update>
-	   
-	    <!-- 이미지 수정 -->
-	    <update id="servImageUpdate" parameterType="hashMap">
-		    update GOGI_SERV_IMAGE
-		    set img_name=#{img_name}		      
-		  	where img_no=#{img_no}
-	   </update> 
-   
-	   <!-- 비밀번호 값 받아오기 -->
-	   <select id="servGetPw" resultType="int" parameterType="int">
-			select cust_serv_pw
-			from GOGI_CUST_SERV_BOARD
-			where cust_serv_no = #{cust_serv_no}
-	   </select>
- 
-   
-	   <!--  삭제 -->
-	   <delete id="servDelete" parameterType="int">
-		    delete from
-		    GOGI_CUST_SERV_BOARD
-		  	where cust_serv_no = #{cust_serv_no}
-	   </delete>
-   
-	   <!-- 1:1문의 내역 조회 -->
-	   <select id="myServList" resultType="servVO">
-			select cust_serv_no, cust_serv_title,mem_id, cust_serv_date
-			from GOGI_CUST_SERV_BOARD
-			where mem_id = #{mem_id}
-			order by cust_serv_date desc
-	   </select>
-   
-   
-      <!-- 댓글 등록 -->
-	   <insert id="addComment" parameterType="CommentVO">
-	      INSERT INTO gogi_comment(cust_serv_no, mem_id, cmt_content,cmt_parent_num,lvl)
-	      VALUES (#{cust_serv_no}, #{mem_id}, #{cmt_content}, #{cmt_parent_num},#{lvl})
-	   </insert>
+	<!-- 수정 -->
+	<update id="servUpdate" parameterType="servVO">
+		update GOGI_CUST_SERV_BOARD
+		set
+		cust_serv_title = #{cust_serv_title},
+		cust_serv_content = #{cust_serv_content}
+		where cust_serv_no = #{cust_serv_no}
+	</update>
 
-		<!-- 부모 댓글의 lvl 조회 -->
-		<select id="getCmtNumber" resultType="int" parameterType="int">
-		    SELECT lvl
-		    FROM gogi_comment
-		    WHERE cmt_number = #{cmt_number}
-		</select>
- 
-	   	<select id="CommentList" parameterType="CommentVO" resultType="CommentVO">
+	<!-- 이미지 수정 -->
+	<update id="servImageUpdate" parameterType="hashMap">
+		update GOGI_SERV_IMAGE
+		set img_name=#{img_name}
+		where img_no=#{img_no}
+	</update>
+
+	<!-- 비밀번호 값 받아오기 -->
+	<select id="servGetPw" resultType="int" parameterType="int">
+		select cust_serv_pw
+		from GOGI_CUST_SERV_BOARD
+		where cust_serv_no = #{cust_serv_no}
+	</select>
+
+
+	<!-- 삭제 -->
+	<delete id="servDelete" parameterType="int">
+		delete from
+		GOGI_CUST_SERV_BOARD
+		where cust_serv_no = #{cust_serv_no}
+	</delete>
+
+	<!-- 1:1문의 내역 조회 -->
+	<select id="myServList" resultType="servVO">
+		select cust_serv_no, cust_serv_title,mem_id, cust_serv_date
+		from GOGI_CUST_SERV_BOARD
+		where mem_id = #{mem_id}
+		order by cust_serv_date desc
+	</select>
+
+
+	<!-- 댓글 등록 -->
+	<insert id="addComment" parameterType="CommentVO">
+		INSERT INTO gogi_comment(cust_serv_no, mem_id, cmt_content,cmt_parent_num,lvl,group_number)
+		VALUES (#{cust_serv_no}, #{mem_id}, #{cmt_content}, #{cmt_parent_num},#{lvl},#{group_number})
+	</insert>
+
+	<!-- 부모 댓글의 lvl 조회 -->
+	<select id="getCmtNumber" resultType="int" parameterType="int">
+		SELECT lvl
+		FROM gogi_comment
+		WHERE cmt_number = #{cmt_number}
+	</select>
+	
+	<!-- 부모 댓글의 group_number 조회 -->
+	<select id="getParentGroupNumber" resultType="int" parameterType="int">
+		SELECT group_number
+		FROM gogi_comment
+		WHERE cmt_number = #{cmt_number}
+	</select>
+	
+	<!-- 제일 마지막에 생성된 group_number 가져오기 -->
+	<select id="getGroupNumber" resultType="int" parameterType="int">
+		<![CDATA[
+			   SELECT COALESCE(MAX(group_number), 0) FROM gogi_comment
+		]]>
+	</select>
+
+
+	<!-- 게시판 댓글 조회  -->
+	<select id="CommentList" parameterType="CommentVO" resultType="CommentVO">
 	    	 <![CDATA[
 			    SELECT
 			        l.lvl,
@@ -173,17 +198,19 @@
 			        gc.cmt_parent_num,
 			        CONCAT(REPEAT('    ', l.lvl - 1), gc.cmt_content) AS cmt_content,
 			        gc.cmt_date,
-			        gc.mem_id
+			        gc.mem_id,
+			        gc.group_number
 			    FROM gogi_comment gc
 			    JOIN (
 			        SELECT
 			            cmt_number,
+			            group_number,
 			            lvl
 			        FROM gogi_comment
 			        WHERE cust_serv_no = #{cust_serv_no}
 			    ) l ON gc.cmt_number = l.cmt_number
-			    ORDER BY gc.cmt_number;
+			    ORDER BY gc.group_number, gc.cmt_parent_num,gc.lvl,gc.cmt_number;
 			    ]]>
-		   </select>
+	</select>
 
-   </mapper>
+</mapper>
