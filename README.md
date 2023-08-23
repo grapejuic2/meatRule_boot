@@ -90,6 +90,15 @@
 </div>
 </details>
 
+<details>
+<summary>게시물 댓글 / 대댓글</summary>
+<div markdown="1">
+
+![댓글](https://github.com/grapejuic2/meatRule_boot/assets/122254607/fa4a725c-2b0f-4797-92ed-0e1f4998be10)
+
+</div>
+</details>
+
 </div>
 </div>
 
