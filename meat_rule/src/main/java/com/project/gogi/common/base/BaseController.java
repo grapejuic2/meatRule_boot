@@ -132,7 +132,6 @@ public abstract class BaseController {
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			imageFileName=mFile.getOriginalFilename();
 			servImageFileVO.setImg_name(imageFileName);
-			System.out.println("업로드 imageFileName:"+imageFileName);
 			fileList.add(servImageFileVO);
 			
 			File file = new File(GOGI_IMAGE_REPO_PATH1 +"\\"+ fileName);
@@ -162,7 +161,6 @@ public abstract class BaseController {
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			imageFileName=mFile.getOriginalFilename();
 			reviewImageVO.setImg_name(imageFileName);
-			System.out.println("업로드 imageFileName:"+imageFileName);
 			fileList.add(reviewImageVO);
 			
 			File file = new File(GOGI_IMAGE_REPO_PATH2 +"\\"+ fileName);

@@ -122,7 +122,6 @@ public class AdminMemberControllerImpl extends BaseController implements AdminMe
 			memberMap.put("mem_tel3",val[2]);
 			
 		}else if(mod_type.equals("mem_email")){
-			/* val=value.split(","); */
 			memberMap.put("mem_email",value);
 			
 		}else if(mod_type.equals("address")){
@@ -152,6 +151,7 @@ public class AdminMemberControllerImpl extends BaseController implements AdminMe
 		mav.setViewName("redirect:/admin/member/adminMemberMain.do");
 		return mav;
 	}
+	
 	@RequestMapping(value = "/updateStatus.do", method = RequestMethod.POST)
 	public void updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    try {

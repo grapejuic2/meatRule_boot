@@ -36,7 +36,6 @@ import com.project.gogi.vo.ReviewVO;
 @RequestMapping(value="/goods")
 public class GoodsControllerImpl extends BaseController implements GoodsController{
 	
-	//리뷰 상품 이미지 파일 저장 위치
 	private static final String GOGI_IMAGE_REPO_PATH2 = "C:\\meatrule\\file_repo\\reviewBoard";
 		
 	@Autowired
@@ -58,8 +57,6 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	    if (category != null) {
 	        goodsMap.keySet().removeIf(key -> !key.equalsIgnoreCase(category));
 	    }
-
-	    //System.out.println("shop 컨트롤러 " + goodsMap);
 	    mav.addObject("goodsMap", goodsMap);
 	    return mav;
 	}
@@ -67,41 +64,33 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	@Override
 	@RequestMapping(value="/goodsDetail.do", method=RequestMethod.GET)
 	public ModelAndView goodsDetail(@RequestParam("goods_id") int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//System.out.println("디테일"+goods_id);
 		
 		String viewName = (String) request.getAttribute("viewName"); 		
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session= request.getSession();
-		
-		//System.out.println(session.getAttribute("memberInfo"));
 
 		Boolean isLogOn=(Boolean) session.getAttribute("isLogon"); //로그인 여부
 		
 		if (isLogOn == null) {
-	        isLogOn = false; // 로그인 상태가 null인 경우 false로 설정
+	        isLogOn = false;
 	    }
 		
 		if(isLogOn) {
-			//로그인 아이디 보내기
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo");
 		    String mem_id = memberVO.getMem_id();
 		    mav.addObject("mem_id", mem_id);		  
 		}
 		
 		mav.addObject("isLogOn", isLogOn);
-		
 		Map goodsMap=goodsService.goodsDetail(goods_id);
-		//System.out.println("상품디테일 컨트롤러: "+goodsMap);
 		
 		mav.addObject("goodsMap", goodsMap);
 		GoodsVO goodsVO=(GoodsVO) goodsMap.get("goodsVO");
-		//System.out.println("상품 디테일 컨트롤러 goodsVO: "+goodsVO);
 		
 		//리뷰 목록 가져오기
 		List<ReviewVO> review = goodsService.reviewList(goods_id);
 		//해당 상품의 리뷰 개수 
 		int reviewListSize=review.size();
-		//System.out.println(reviewListSize+"개");
 		mav.addObject("reviewListSize", reviewListSize);
 		mav.addObject("review", review);
 		
@@ -112,7 +101,6 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	        List<ReviewImageVO> reviewImages = goodsService.selectImageFile(rev_no);
 	        reviewImageList.addAll(reviewImages);
 	    }
-	    
 	    mav.addObject("imageFileList", reviewImageList);	    
 		return mav;
 	}
@@ -130,19 +118,16 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		keyword = keyword.toUpperCase();
 	    List<String> keywordList =goodsService.keywordSearch(keyword);
 	    
-	 // ���� �ϼ��� JSONObject ����(��ü)
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("keyword", keywordList);
 		 		
 	    String jsonInfo = jsonObject.toString();
-	   // System.out.println(jsonInfo);
 	    return jsonInfo ;
 	}
 	
 	@RequestMapping(value="/searchResult.do" ,method = RequestMethod.GET)
 	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,
 			                       HttpServletRequest request, HttpServletResponse response) throws Exception{
-		//System.out.println("검색결과 컨트롤러");
 		String viewName=(String)request.getAttribute("viewName");
 		List<GoodsVO> goodsList=goodsService.searchGoods(searchWord);
 		ModelAndView mav = new ModelAndView(viewName);

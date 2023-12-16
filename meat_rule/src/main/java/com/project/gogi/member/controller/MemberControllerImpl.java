@@ -60,7 +60,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session.setAttribute("memberInfo", memberVO);
 			System.out.println("로그인"+memberVO.getMem_id());
 			
-	        // 관리자 계정 확인: memberVO에서 관리자 이메일 또는 ID를 확인하고 세션에 isAdmin 값을 설정.
 	        if (memberVO.getMem_id().equals("admin")) {
 	            session.setAttribute("isAdmin", true);
 	        } else {
@@ -83,12 +82,10 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	@RequestMapping(value="/logout.do" ,method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    ModelAndView mav = new ModelAndView();
-	    HttpSession session = request.getSession(false); // 기존 세션을 가져옴
+	    HttpSession session = request.getSession(false);
 
 	    if (session != null) {
-	        session.invalidate(); // 세션 무효화
-
-	        // 새로운 세션 생성
+	        session.invalidate();
 	        session = request.getSession(true);
 	        session.setAttribute("isLogOn", false);
 	        System.out.println(memberVO.getMem_id()+ " 로그아웃 완료");
@@ -101,7 +98,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	// 회원가입 사용 시 컨트롤러
 	@Override
 	@RequestMapping(value="/memberForm.do" ,method = RequestMethod.POST)
-									// 회원 가입 창에서 전송된 회원 정보를 _memberVO에 설정합니다.
 	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,
 			                		HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
@@ -176,13 +172,11 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         }catch(Exception e) {
             e.printStackTrace();
         }
-        // 위 try catch 문은 이메일 전송 프로세스 중에 발생하는 예외 포착 
-        String rnum = Integer.toString(num);  //view로 다시 반환할 때 String만 가능
+        String rnum = Integer.toString(num);
         
         return rnum;
 	}
 	
-	// member/*Form.do 일괄처리 메서드 
 	@RequestMapping(value = "/*Form.do", method = RequestMethod.GET)
 	public ModelAndView form(@RequestParam(value = "result", required = false) String result,
 							 @RequestParam(value = "action", required = false) String action,

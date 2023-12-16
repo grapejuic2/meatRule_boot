@@ -16,7 +16,6 @@ import com.project.gogi.vo.GoodsVO;
 import com.project.gogi.vo.ReviewImageVO;
 import com.project.gogi.vo.ReviewVO;
 
-
 @Repository("goodsDAOImpl")
 public class GoodsDAOImpl implements GoodsDAO{
 	@Autowired SqlSession sqlSession;
@@ -24,14 +23,12 @@ public class GoodsDAOImpl implements GoodsDAO{
 	@Override
 	public List<GoodsVO> selectGoodsMainList(String goods_status) throws DataAccessException {
 		List<GoodsVO> goodsList=(ArrayList) sqlSession.selectList("mapper.goods.selectGoodsMainList", goods_status);
-		System.out.println("dao: "+goodsList);
 		return goodsList;
 	}
 	
 	@Override
 	public List<GoodsVO> selectGoodsShopList(String goods_sort) throws DataAccessException {
 		List<GoodsVO> goodsShopList=(ArrayList) sqlSession.selectList("mapper.goods.selectGoodsShopList", goods_sort);
-		System.out.println("dao: "+goodsShopList);
 		return goodsShopList;
 	}
 	
@@ -45,7 +42,6 @@ public class GoodsDAOImpl implements GoodsDAO{
 	public int reviewWrite(ReviewVO reviewVO) throws Exception {
 		sqlSession.insert("mapper.review.reviewWrite", reviewVO);
 		int rev_no=reviewVO.getRev_no();
-		System.out.println("@@@@@@@@dao 리뷰번호:"+rev_no);
 		return rev_no;
 	}
 	

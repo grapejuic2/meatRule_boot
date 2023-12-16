@@ -34,7 +34,6 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
-		//String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		//페이징
 		String sectionStr = dateMap.get("section");
 		String pageNumStr = dateMap.get("pageNum");
@@ -49,34 +48,14 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
 		// totalPageCount 계산
 		int totalPageCount = (int) Math.ceil((double) total / pageSize);
 		System.out.println("#######totalPageCount:"+total+"#######totalPageCount:"+totalPageCount);
-//		String beginDate=null,endDate=null;
-//		
-//		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
-//		beginDate=tempDate[0];
-//		endDate=tempDate[1];
-//		dateMap.put("beginDate", beginDate);
-//		dateMap.put("endDate", endDate);
-		
 		
 		HashMap<String,Object> condMap=new HashMap<String,Object>();
 		
 		condMap.put("pageNum",pageNum);
-		//condMap.put("beginDate",beginDate);
 		condMap.put("offset",offset);
 		condMap.put("pageSize",pageSize);
-		//condMap.put("endDate", endDate);
 		List<OrderVO> newOrderList=adminOrderService.listNewOrder(condMap);
-		System.out.println("@@@@@@@@@@@@@newOrderList:"+newOrderList.toString());
 		mav.addObject("newOrderList",newOrderList);
-		
-//		String beginDate1[]=beginDate.split("-");
-//		String endDate2[]=endDate.split("-");
-//		mav.addObject("beginYear",beginDate1[0]);
-//		mav.addObject("beginMonth",beginDate1[1]);
-//		mav.addObject("beginDay",beginDate1[2]);
-//		mav.addObject("endYear",endDate2[0]);
-//		mav.addObject("endMonth",endDate2[1]);
-//		mav.addObject("endDay",endDate2[2]);
 		mav.addObject("totalPageCount", totalPageCount);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
@@ -89,7 +68,6 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
 	@RequestMapping(value="/modifyDeliveryState.do" ,method={RequestMethod.POST})
 	public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap, 
 			                        		  HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// 배송 상태를 변경합니다.
 		adminOrderService.modifyDeliveryState(deliveryMap);
 		String message = null;
 		ResponseEntity resEntity = null;
@@ -100,7 +78,6 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
 	}
 	
 	@Override
-	// 주문 상품의 상세 정보를 조회합니다.
 	@RequestMapping(value="/orderDetail.do" ,method={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView orderDetail(@RequestParam("order_id") int order_id, 
 			                        HttpServletRequest request, HttpServletResponse response)  throws Exception {

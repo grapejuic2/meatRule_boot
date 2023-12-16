@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component("goodsVO")
 public class GoodsVO {
-	/*0713 오동림 0714 오동림 수정*/
 	
     private int goods_id;
     private String goods_sort; 
@@ -20,7 +19,7 @@ public class GoodsVO {
     private String goods_intro;
     private String goods_status; // 상품분류(B: 베스트상품 / S: 세일상품 / N: 기본상품)
     private int goods_weight;
-    private String file_name; //이미지파일 이름 저장하기 위한 객체
+    private String file_name;
 
 	public GoodsVO() {}
 

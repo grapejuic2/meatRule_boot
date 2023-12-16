@@ -35,16 +35,11 @@ public class SocialController {
 	
 	@RequestMapping(value="/kakao_callback", method = RequestMethod.GET)
 	public String redirectkakao(@RequestParam String code, HttpSession session) throws IOException {
-		System.out.println(code);
 		
-		//접속토큰 get
 		String kakaoToken = socialService.getReturnAccessToken(code);
-		System.out.println(kakaoToken);
-		//접속자 정보 get
 		MemberVO result = socialService.getUserInfo(kakaoToken);
 
 		session.setAttribute("memberInfo", result);
-		//로그아웃 처리 시, 사용할 토큰 값
 		session.setAttribute("kakaoToken", kakaoToken);
 		session.setAttribute("isLogon", true);
 		
@@ -54,12 +49,10 @@ public class SocialController {
 	@RequestMapping(value="/kakao_logout.do" ,method = RequestMethod.GET)
 	public ModelAndView kakaologout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    ModelAndView mav = new ModelAndView();
-	    HttpSession session = request.getSession(false); // 기존 세션을 가져옴
+	    HttpSession session = request.getSession(false);
 
 	    if (session != null) {
-	        session.invalidate(); // 세션 무효화
-
-	        // 새로운 세션 생성
+	        session.invalidate();
 	        session = request.getSession(true);
 	        session.setAttribute("isLogOn", false);
 	    }

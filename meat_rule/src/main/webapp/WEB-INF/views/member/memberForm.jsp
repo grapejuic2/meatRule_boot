@@ -210,19 +210,30 @@ width: 70px;
 <script>
 	/* 아이디 중복 체크 */
 	$(document).ready(function() {
+		
+		$("#mem_id").on("input", function() {
+		var inputValue = $(this).val();
+		var filteredValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+	    $(this).val(filteredValue);
+		});
+		
 	  $("#checkIdButton").on("click", function() {
 	    var mem_id = $("#mem_id").val();
 	    if (mem_id == '') {
 	      alert("아이디를 입력하세요.");
 	      return;
 	    }
+	    
+	    var filteredMemId = mem_id.replace(/[^a-zA-Z0-9]/g, '');
+	    $("#mem_id").val(filteredMemId);
+	    
 	    $.ajax({
 	      type: "post",
 	      async: false,
 	      url: "${contextPath}/member/checkId.do",
 	      dataType: "json",
 	      data: {
-	        mem_id: mem_id
+	        mem_id: filteredMemId
 	      },
 	      success: function(result) {
 	        if (result == 0) {
@@ -254,9 +265,25 @@ width: 70px;
 	});
 
 	/* 이메일 인증 */
+	function isValidEmail(email) {
+	  // 이메일 주소의 정규 표현식
+	  var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	
+	  // 정규 표현식과 매치되는지 확인
+	  return emailPattern.test(email);
+	}
+	
 	$(document).ready(function() {
 	  $("#sendMail").click(function() {
 	    var mem_email = $("#mem_email").val();
+	
+	    // 이메일 주소의 유효성을 확인
+	    if (!isValidEmail(mem_email)) {
+	      alert("올바른 이메일 주소를 입력하세요.");
+	      return;
+	    }
+	
+	    // 이메일 주소가 올바를 경우에만 인증 요청을 보냄
 	    $.ajax({
 	      type: "POST",
 	      url: "${contextPath}/member/emailConfirm.do",

@@ -46,7 +46,6 @@ public class MainController {
 	@RequestMapping(value = "/notice.do", method = RequestMethod.GET)
 	private String noticePage() {
 		return "notice/notice";
-
 	}
 
 }
